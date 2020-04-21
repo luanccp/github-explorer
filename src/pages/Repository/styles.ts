@@ -30,6 +30,9 @@ export const RepositoryInfo = styled.section`
     display:flex;
     align-items:center;
 
+    @media (max-width:375px) { 
+      flex-direction:column;
+    }
     img{
       width:120px;
       height:120px;
@@ -50,6 +53,9 @@ export const RepositoryInfo = styled.section`
       color:#737380;
       margin-top:4px;
 
+      @media (max-width:375px) {
+        text-align:center;
+      }  
     }
   }
   ul{
@@ -57,9 +63,20 @@ export const RepositoryInfo = styled.section`
     list-style:none;
     margin-top: 40px;
 
+      
+  @media (max-width:375px) {  
+    flex-direction:column;
+    align-items:center;
+    margin-left:20px;
+  }
+
     li{
       &+li{
         margin-left: 80px;
+        
+        @media (max-width:375px) {  
+          margin-left: 0;
+        }
       }
 
       strong{
@@ -68,7 +85,7 @@ export const RepositoryInfo = styled.section`
         color:#3d3d4d;
       }
 
-      span{
+      p{
         display:block;
         margin-top:4px;
         color:#6c6c80;
