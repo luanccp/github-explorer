@@ -17,14 +17,26 @@ interface Repository {
 
 const Dashboard: React.FC = () => {
   const [newRepo, setNewRepo] = useState('');
-  const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [repositories, setRepositories] = useState<Repository[]>(() => {
+    const storageRepositories = localStorage.getItem('@GithubExplore:repositories')
+
+    if (storageRepositories) {
+      return JSON.parse(storageRepositories);
+    }
+    return [];
+  });
   const [InputError, setInputError] = useState('');
+
+
+  useEffect(() => {
+    localStorage.setItem('@GithubExplore:repositories', JSON.stringify(repositories))
+  }, [repositories])
 
   async function handleAddRepository(event: FormEvent<HTMLFormElement>): Promise<void> {
 
     event.preventDefault()
 
-    if(!newRepo){
+    if (!newRepo) {
       setInputError('Digite o autor/nome do repositório.');
       return;
     }
@@ -61,9 +73,9 @@ const Dashboard: React.FC = () => {
             <img
               src={repo.owner.avatar_url}
               alt={repo.owner.login}
-              />
+            />
             <div>
-        <strong>{repo.full_name}</strong>
+              <strong>{repo.full_name}</strong>
               <p>{repo.description}</p>
             </div>
             <FiChevronRight size={20} />
